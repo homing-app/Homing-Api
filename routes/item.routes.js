@@ -11,11 +11,11 @@ router.post('/create',
   itemController.create
 )
 
-router.get('/details',
+router.get('/:id',
   itemController.details
 )
 
-router.post('/edit',
+router.put('/:id',
   itemController.edit
 )
 

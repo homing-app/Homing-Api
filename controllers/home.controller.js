@@ -14,18 +14,6 @@ module.exports.register = (req,res,next) => {
     .catch(next)
 }
 
-module.exports.setUpHome = (req, res, next) => {
-  Home.findOne({homeCode: req.body.homeCode})
-    .then(home => {
-      if(!home) {
-        throw createError (404, 'house not found')
-      } else {
-        req.user.home = home.homeCode
-      }
-    })
-    .catch(error => next(error))
-}
-
 module.exports.edit = (req, res, next) => {
   Home.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then(home => {
@@ -39,7 +27,7 @@ module.exports.edit = (req, res, next) => {
 
 module.exports.details = (req, res, next) => {
   //Cuando esté el front, el findById será req.user.home, pero para que funcione con postman debe ser req.body
-  Home.findById(req.body)
-    .populate('users rooms tasks')
+  Home.findById(req.params.id)
+    .populate('users rooms tasks items')
     .then(home => res.json(home))
 }

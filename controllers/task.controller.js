@@ -1,4 +1,5 @@
 const Task = require('../models/task.model')
+const createError = require('http-errors')
 
 module.exports.list = (req, res, next) => {
   Task.find()
@@ -18,6 +19,7 @@ module.exports.create = (req, res, next) => {
 
 module.exports.details = (req, res, next) => {
   Task.findById(req.params.id)
+    .populate('user')
     .then(task => {
       if(!task) {
         throw createError(404, 'Task not found!')
@@ -25,6 +27,7 @@ module.exports.details = (req, res, next) => {
         res.json(task)
       }
     })
+    .catch(error => next(error))
 }
 
 module.exports.edit = (req, res, next) => {

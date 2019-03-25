@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const User = require('./user.model');
 
 const taskSchema = new mongoose.Schema({
@@ -17,18 +16,16 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Home'
   }, 
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }, 
   expirationDate: {
     type: Date
   }
 },{
   timestamps: true,
 });
-
-taskSchema.virtual('users', {
-  ref: User.modelName,
-  localField: '_id',
-  foreignField: 'task'
-})
 
 const Task = mongoose.model('Task', taskSchema)
 module.exports = Task;

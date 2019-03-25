@@ -11,11 +11,11 @@ router.post('/create',
   taskController.create
 )
 
-router.get('/details',
+router.get('/:id',
   taskController.details
 )
 
-router.post('/edit',
+router.put('/:id',
   taskController.edit
 )
 

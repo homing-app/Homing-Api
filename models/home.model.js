@@ -13,7 +13,8 @@ const homeSchema = new mongoose.Schema({
     unique: true
   },
   homeCode: {
-    type: String
+    type: String,
+    unique: true
   },
   name: {
     type: String,
@@ -61,6 +62,12 @@ homeSchema.virtual('rooms', {
 })
 
 homeSchema.virtual('tasks', {
+  ref: Task.modelName,
+  localField: '_id',
+  foreignField: 'home'
+})
+
+homeSchema.virtual('items', {
   ref: Task.modelName,
   localField: '_id',
   foreignField: 'home'

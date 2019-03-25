@@ -15,11 +15,11 @@ router.get('/details',
   roomController.details
 )
 
-router.post('/edit',
+router.put('/:id',
   roomController.edit
 )
 
-router.get('/delete',
+router.delete('/:id',
 roomController.delete
 )
 

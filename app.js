@@ -10,6 +10,9 @@ const passport = require('passport')
 const authRoutes = require('./routes/auth.routes');
 const homeRoutes = require('./routes/home.routes');
 const userRoutes = require('./routes/user.routes');
+const roomRoutes = require('./routes/room.routes');
+const taskRoutes = require('./routes/task.routes');
+const itemRoutes = require('./routes/item.routes');
 
 require('./configs/db.config');
 const session = require('./configs/session.config');
@@ -29,6 +32,10 @@ app.use(session);
 app.use(passport.initialize())
 app.use(passport.session())
 
+
+app.use('/room', roomRoutes);
+app.use('/task', taskRoutes);
+app.use('/item', itemRoutes);
 app.use('/home', homeRoutes);
 app.use('/user', userRoutes);
 app.use('/', authRoutes)

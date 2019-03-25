@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 4;
+const Item = require('./item.model');
+const Task = require('./task.model');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -27,6 +29,7 @@ const userSchema = new mongoose.Schema({
 },{
   timestamps: true,
   toJSON: {
+    virtuals: true,
     transform: (doc, ret) => {
       ret.id = doc._id;
       delete ret.password,
@@ -36,6 +39,18 @@ const userSchema = new mongoose.Schema({
     }
   }
 });
+
+userSchema.virtual('items', {
+  ref: Item.modelName,
+  localField: '_id',
+  foreignField: 'user'
+})
+
+userSchema.virtual('tasks', {
+  ref: Task.modelName,
+  localField: '_id',
+  foreignField: 'user'
+})
 
 userSchema.pre('save', function (next) {
   const user = this

@@ -25,6 +25,7 @@ module.exports.details = (req, res, next) => {
         res.json(item)
       }
     })
+    .catch(error => next(error))
 }
 
 module.exports.edit = (req, res, next) => {

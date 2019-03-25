@@ -7,12 +7,12 @@ router.post('/register',
   homeController.register
 )
 
-router.post('/setUpHome',
-  homeController.setUpHome
+router.get('/:id',
+homeController.details
 )
 
-router.get('/details',
-homeController.details
+router.put('/:id',
+homeController.edit
 )
 
 module.exports = router

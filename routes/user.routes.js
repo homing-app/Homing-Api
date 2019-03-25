@@ -7,4 +7,12 @@ router.get('/details',
 userController.details
 )
 
+router.put('/:id',
+userController.edit
+)
+
+router.put('/:id/setuphome',
+userController.setuphome
+)
+
 module.exports = router
