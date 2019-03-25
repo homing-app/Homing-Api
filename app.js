@@ -1,58 +1,68 @@
 require('dotenv').config();
 
-const bodyParser   = require('body-parser');
+const createError = require('http-errors')
+const express = require('express');
 const cookieParser = require('cookie-parser');
-const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
-const path         = require('path');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+const passport = require('passport')
 
+const authRoutes = require('./routes/auth.routes');
+const homeRoutes = require('./routes/home.routes');
+const userRoutes = require('./routes/user.routes');
 
-mongoose
-  .connect('mongodb://localhost/homing-api', {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
-
-const app_name = require('./package.json').name;
-const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
+require('./configs/db.config');
+const session = require('./configs/session.config');
+// const cors = require('.configs/cors.config');
+require('./configs/passport.config')
 
 const app = express();
 
 // Middleware Setup
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(cors)
 
-// Express View engine setup
+app.use(session);
+app.use(passport.initialize())
+app.use(passport.session())
 
-app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  sourceMap: true
-}));
-      
+app.use('/home', homeRoutes);
+app.use('/user', userRoutes);
+app.use('/', authRoutes)
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+app.use((req, res, next) => {
+  res.locals.session = req.user;
+  next();
+})
 
+// 404
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
+// error handler
+app.use(function (error, req, res, next) {
+  console.error(error);
 
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+  res.status(error.status || 500);
 
+  const data = {}
 
+  if (error instanceof mongoose.Error.ValidationError) {
+    res.status(400);
+    for (field of Object.keys(error.errors)) {
+      error.errors[field] = error.errors[field].message
+    }
+    data.errors = error.errors
+  } else if (error instanceof mongoose.Error.CastError) {
+    error = createError(404, 'Resource not found')
+  }
 
-const index = require('./routes/index');
-app.use('/', index);
-
+  data.message = error.message;
+  res.json(data);
+});
 
 module.exports = app;
