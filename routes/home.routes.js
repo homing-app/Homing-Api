@@ -10,11 +10,13 @@ router.post('/register',
 
 router.get('/:id',
   secure.isAuthenticated,
+  secure.checkHome,
   homeController.details
 )
 
 router.put('/:id',
   secure.isAuthenticated,
+  secure.checkHome,
   homeController.edit
 )
 
