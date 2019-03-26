@@ -4,27 +4,31 @@ const secure = require('../middlewares/secure.mid')
 const taskController = require('../controllers/task.controller');
 
 router.get('/list',
-secure.isAuthenticated,
+  secure.isAuthenticated,
+  secure.checkHomeTask,
   taskController.list
 )
 
 router.post('/create',
-secure.isAuthenticated,
+  secure.isAuthenticated,
+  secure.checkHomeTask,
   taskController.create
 )
 
 router.get('/:id',
-secure.isAuthenticated,
+  secure.isAuthenticated,
+  secure.checkHomeTask,
   taskController.details
 )
 
 router.put('/:id',
-secure.isAuthenticated,
+  secure.isAuthenticated,
+  secure.checkHomeTask,
   taskController.edit
 )
 
 // router.get('/delete',
-// secure.isAuthenticated,
+//secure.checkHomeTask,
 // itemController.delete
 // )
 
