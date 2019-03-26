@@ -11,7 +11,6 @@ router.get('/list',
 
 router.post('/create',
   secure.isAuthenticated,
-  secure.checkHomeRoom,
   roomController.create
 )
 

@@ -26,9 +26,7 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.details = (req, res, next) => {
-  console.log("home details => ",req.user.home)
-  //Cuando esté el front, el findById será req.user.home, pero para que funcione con postman debe ser req.body
-  Home.findById(req.params.id)
+  Home.findById(req.user.home)
     .populate('users rooms tasks items')
     .then(home => res.json(home))
 }
