@@ -8,7 +8,11 @@ module.exports.register = (req,res,next) => {
       if(user) {
         throw createError(409, 'User already registered')
       } else {
-        return new User(req.body).save()
+        const user = new User(req.body)
+        if(req.file){
+          user.imageUrl = req.file.secure_url
+        }
+        return user.save()
       }
     })
     .then(user => res.status(201).json(user))

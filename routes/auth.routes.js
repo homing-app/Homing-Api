@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const uploader = require('../configs/storage.config')
 const authController = require('../controllers/auth.controller');
 
 router.post('/authenticate',
@@ -8,6 +9,7 @@ router.post('/authenticate',
 )
 
 router.post('/register',
+uploader.single('attachment'),
   authController.register
 )
 
