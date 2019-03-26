@@ -25,7 +25,7 @@ module.exports.authenticate = (req, res, next) => {
         if(error) {
           next(error)
         } else {
-          res.status(201).json(user)
+          res.status(200).json(user)
         }
       })
     }
@@ -34,5 +34,5 @@ module.exports.authenticate = (req, res, next) => {
 
 module.exports.logout = (req, res, next) => {
   req.logout();
-  res.status(204).json()
+  res.status(200).json("logged out")
 }
