@@ -5,9 +5,13 @@ module.exports.register = (req,res,next) => {
   Home.findOne({email: req.body.email})
     .then(home => {
       if(home) {
-        throw createError(409, 'home already registered')
+        throw createError(409, 'Home already registered')
       } else {
-        return new Home(req.body).save()
+        const home = new Home(req.body)
+        if(req.file){
+          home.imageUrl = req.file.secure_url
+        }
+        return home.save()
       }
     })
     .then(home => res.status(201).json(home))

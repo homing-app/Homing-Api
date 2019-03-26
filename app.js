@@ -16,7 +16,7 @@ const itemRoutes = require('./routes/item.routes');
 
 require('./configs/db.config');
 const session = require('./configs/session.config');
-// const cors = require('.configs/cors.config');
+const cors = require('./configs/cors.config');
 require('./configs/passport.config')
 
 const app = express();
@@ -26,7 +26,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(cors)
+app.use(cors)
 
 app.use(session);
 app.use(passport.initialize())
