@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const secure = require('../middlewares/secure.mid')
+const uploader = require('../configs/storage.config')
 const userController = require('../controllers/user.controller');
 
 router.get('/details',
@@ -10,6 +11,7 @@ userController.details
 
 router.put('/:id',
 secure.isAuthenticated,
+uploader.single('attachment'),
 userController.edit
 )
 

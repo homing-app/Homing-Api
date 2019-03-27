@@ -16,15 +16,28 @@ module.exports.details = (req, res, next) => {
     .catch(error => next(error))
 } 
 
+// module.exports.edit = (req, res, next) => {
+//   User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+//   .then(user => {
+//     if(!user) {
+//       throw createError(404, 'User not found!')
+//     } else {
+//       res.json(user)
+//     }
+//   })
+// }
+
 module.exports.edit = (req, res, next) => {
-  User.findByIdAndUpdate(req.params.id, req.body, {new: true})
-  .then(user => {
-    if(!user) {
-      throw createError(404, 'User not found!')
-    } else {
-      res.json(user)
-    }
-  })
+delete req.body.email;
+const user = req.user;
+
+Object.keys(req.body).forEach(prop => user[prop] = req.body[prop])
+
+if(req.file) user.imageUrl = req.file.secure_url;
+
+user.save()
+  .then(user => res.status(202).json(user))
+  .catch(error => next(error))
 }
 
 module.exports.setuphome = (req, res, next) => {

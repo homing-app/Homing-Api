@@ -20,6 +20,7 @@ router.get('/:id',
 router.put('/:id',
   secure.isAuthenticated,
   secure.checkHome,
+  uploader.single('attachment'),
   homeController.edit
 )
 
