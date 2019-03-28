@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const SALT_WORK_FACTOR = 4;
 
 const User = require('./user.model');
 const Room  = require('./room.model');

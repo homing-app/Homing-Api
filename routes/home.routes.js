@@ -6,7 +6,7 @@ const uploader = require('../configs/storage.config')
 const homeController = require('../controllers/home.controller');
 
 router.post('/register',
-  secure.isAuthenticated,
+  // secure.isAuthenticated,
   uploader.single('attachment'),
   homeController.register
 )
