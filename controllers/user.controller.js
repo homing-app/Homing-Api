@@ -41,7 +41,6 @@ user.save()
 }
 
 module.exports.setuphome = (req, res, next) => {
-  console.log(req.user)
   Home.findOne({homeCode: req.body.homeCode})
     .then(home => {
       if(!home) {

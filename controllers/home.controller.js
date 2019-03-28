@@ -14,20 +14,15 @@ module.exports.register = (req,res,next) => {
         return home.save()
       }
     })
-    .then(home => res.status(201).json(home))
+    .then(() => Home.findOne({email: req.body.email})
+    .then(home => {
+      req.user.home = home.id
+      req.user.save()
+        .then(response => res.json(response))
+    })
+    .catch(error => next(error)))
     .catch(next)
 }
-
-// module.exports.edit = (req, res, next) => {
-//   Home.findByIdAndUpdate(req.params.id, req.body, {new: true})
-//     .then(home => {
-//       if(!home) {
-//         throw createError(404, 'Home not found!')
-//       } else {
-//         res.json(home)
-//       }
-//     })
-// }
 
 module.exports.edit = (req, res, next) => {
   Home.findById(req.params.id)
