@@ -13,6 +13,8 @@ const userRoutes = require('./routes/user.routes');
 const roomRoutes = require('./routes/room.routes');
 const taskRoutes = require('./routes/task.routes');
 const itemRoutes = require('./routes/item.routes');
+const momentRoutes = require('./routes/moment.routes');
+const infoItemRoutes = require('./routes/infoItem.routes');
 
 require('./configs/db.config');
 const session = require('./configs/session.config');
@@ -34,6 +36,8 @@ app.use(passport.session())
 
 
 app.use('/room', roomRoutes);
+app.use('/moment', momentRoutes);
+app.use('/infoitem', infoItemRoutes);
 app.use('/task', taskRoutes);
 app.use('/item', itemRoutes);
 app.use('/home', homeRoutes);

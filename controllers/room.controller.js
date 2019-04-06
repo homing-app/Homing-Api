@@ -10,7 +10,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   const room = new Room(req.body)
-  
+  console.log(req.body)
   room.save()
     .then(room => res.status(201).json(room))
     .catch(error => next(error))
@@ -26,7 +26,7 @@ module.exports.details = (req, res, next) => {
       }
     })
 }
-
+ 
 module.exports.edit = (req, res, next) => {
   Room.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then(room => {

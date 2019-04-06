@@ -41,13 +41,13 @@ module.exports.edit = (req, res, next) => {
     })
 }
 
-// module.exports.delete = (req, res, next) => {
-//   Task.findByIdAndDelete(req.params.id)
-//     .then(task => {
-//       if(!task) {
-//         throw createError(404, 'Task not found!')
-//       } else {
-//         res.json("Task deleted!")
-//       }
-//     })
-// }
+module.exports.delete = (req, res, next) => {
+  Task.findByIdAndDelete(req.params.id)
+    .then(task => {
+      if(!task) {
+        throw createError(404, 'Task not found!')
+      } else {
+        res.json("Task deleted!")
+      }
+    })
+}

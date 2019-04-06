@@ -1,35 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const secure = require('../middlewares/secure.mid')
-const taskController = require('../controllers/task.controller');
+const infoItemController = require('../controllers/infoItem.controller');
 
 router.get('/list',
   secure.isAuthenticated,
-  secure.checkHomeTask,
-  taskController.list
+  // secure.checkHomeItem,
+  infoItemController.list
 )
 
 router.post('/create',
   secure.isAuthenticated,
-  // secure.checkHomeTask,
-  taskController.create
+  // secure.checkHomeItem,
+  infoItemController.create
 )
 
 router.get('/:id',
   secure.isAuthenticated,
-  secure.checkHomeTask,
-  taskController.details
+  // secure.checkHomeItem,
+  infoItemController.details
 )
 
 router.put('/:id',
   secure.isAuthenticated,
-  secure.checkHomeTask,
-  taskController.edit
+  // secure.checkHomeItem,
+  infoItemController.edit
 )
 
 router.delete('/:id',
   secure.isAuthenticated,
-  taskController.delete
+  infoItemController.delete
 )
 
 module.exports = router

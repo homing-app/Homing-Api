@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const User = require('./user.model');
 const Room  = require('./room.model');
 const Task  = require('./task.model');
+const Item  = require('./item.model');
+const Moment  = require('./moment.model');
+const InfoItem  = require('./infoItem.model');
 
 const homeSchema = new mongoose.Schema({
   email: {
@@ -21,20 +24,6 @@ const homeSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String
-  },
-  address: {
-    vicinity: {
-      type: String
-    },
-    number: {
-      type: Number
-    },
-    door: {
-      type: String
-    },
-    addressCode: {
-      type: Number
-    }
   }
 },{
   timestamps: true,
@@ -67,14 +56,25 @@ homeSchema.virtual('tasks', {
 })
 
 homeSchema.virtual('items', {
-  ref: Task.modelName,
+  ref: Item.modelName,
+  localField: '_id',
+  foreignField: 'home'
+})
+
+homeSchema.virtual('moments', {
+  ref: Moment.modelName,
+  localField: '_id',
+  foreignField: 'home'
+})
+
+homeSchema.virtual('info', {
+  ref: InfoItem.modelName,
   localField: '_id',
   foreignField: 'home'
 })
 
 homeSchema.pre('save', function (next) {
   const home = this
-  console.log(home.name)
   home.homeCode = `${home.name.charAt(0)}${Math.floor(Math.random()*999)}${home.name.length}`
   return next()
 })

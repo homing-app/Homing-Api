@@ -39,8 +39,6 @@ module.exports.checkHomeRoom = (req, res, next) => {
   if (req.isAuthenticated()) {
     Room.findById(req.params.id)
       .then(room => {
-        console.log(room.home)
-        console.log(req.user.home)
         if (room.home.toString() == req.user.home.toString()) {
           next()
         } else {
@@ -58,6 +56,22 @@ module.exports.checkHomeTask = (req, res, next) => {
     Task.findById(req.params.id)
       .then(task => {
         if (req.user.home.toString() === task.home.toString()) {
+          next()
+        } else {
+          next(createError(403, 'Insufficient privileges'))
+        }
+      })
+      .catch(error => next(error))
+  } else {
+    next(createError(403, 'Insufficient privileges'))
+  }
+}
+
+module.exports.checkHomeMoment = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    Moment.findById(req.params.id)
+      .then(moment => {
+        if (req.user.home.toString() === moment.home.toString()) {
           next()
         } else {
           next(createError(403, 'Insufficient privileges'))

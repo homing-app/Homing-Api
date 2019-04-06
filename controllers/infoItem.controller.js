@@ -1,7 +1,8 @@
-const Item = require('../models/item.model')
+const InfoItem = require('../models/infoItem.model')
+const createError = require('http-errors');
 
 module.exports.list = (req, res, next) => {
-  Item.find()
+  InfoItem.find()
     .then(items => {
       res.json(items)
     })
@@ -9,14 +10,14 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  const item = new Item(req.body)
-  item.save()
+  const infoItem = new InfoItem(req.body)
+  infoItem.save()
     .then(item => res.status(201).json(item))
     .catch(error => next(error))
 }
 
 module.exports.details = (req, res, next) => {
-  Item.findById(req.params.id)
+  InfoItem.findById(req.params.id)
     .then(item => {
       if(!item) {
         throw createError(404, 'Item not found!')
@@ -28,7 +29,7 @@ module.exports.details = (req, res, next) => {
 }
 
 module.exports.edit = (req, res, next) => {
-  Item.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  InfoItem.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then(item => {
       if(!item) {
         throw createError(404, 'Item not found!')
@@ -39,7 +40,7 @@ module.exports.edit = (req, res, next) => {
 }
 
 module.exports.delete = (req, res, next) => {
-  Item.findByIdAndDelete(req.params.id)
+  InfoItem.findByIdAndDelete(req.params.id)
     .then(item => {
       if(!item) {
         throw createError(404, 'Item not found!')

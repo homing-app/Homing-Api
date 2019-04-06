@@ -5,13 +5,13 @@ const itemController = require('../controllers/item.controller');
 
 router.get('/list',
   secure.isAuthenticated,
-  secure.checkHomeItem,
+  // secure.checkHomeItem,
   itemController.list
 )
 
 router.post('/create',
   secure.isAuthenticated,
-  secure.checkHomeItem,
+  // secure.checkHomeItem,
   itemController.create
 )
 
@@ -27,9 +27,9 @@ router.put('/:id',
   itemController.edit
 )
 
-// router.get('/delete',
-// secure.checkHomeItem,
-// itemController.delete
-// )
+router.delete('/:id',
+  secure.isAuthenticated,
+  itemController.delete
+)
 
 module.exports = router

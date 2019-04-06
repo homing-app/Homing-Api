@@ -4,7 +4,7 @@ const secure = require('../middlewares/secure.mid')
 const uploader = require('../configs/storage.config')
 const userController = require('../controllers/user.controller');
 
-router.get('/details',
+router.get('/:id',
 secure.isAuthenticated,
 userController.details
 )
