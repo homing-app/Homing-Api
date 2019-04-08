@@ -44,7 +44,7 @@ module.exports.delete = (req, res, next) => {
       if(!item) {
         throw createError(404, 'Item not found!')
       } else {
-        res.json("Item deleted!")
+        res.json(item)
       }
     })
 }

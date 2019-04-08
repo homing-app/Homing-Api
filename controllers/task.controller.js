@@ -47,7 +47,7 @@ module.exports.delete = (req, res, next) => {
       if(!task) {
         throw createError(404, 'Task not found!')
       } else {
-        res.json("Task deleted!")
+        res.json(task)
       }
     })
 }

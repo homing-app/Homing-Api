@@ -43,6 +43,6 @@ module.exports.edit = (req, res, next) => {
 
 module.exports.details = (req, res, next) => {
   Home.findById(req.user.home)
-    .populate('users rooms tasks items moments info')
+    .populate('users rooms tasks items moments info log')
     .then(home => res.json(home))
 }

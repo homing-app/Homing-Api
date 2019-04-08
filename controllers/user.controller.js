@@ -16,7 +16,6 @@ module.exports.details = (req, res, next) => {
 } 
 
 module.exports.edit = (req, res, next) => {
-  console.log("ENTRAAAAAAA")
 delete req.body.email;
 const user = req.user;
 Object.keys(req.body).forEach(prop => user[prop] = req.body[prop])
