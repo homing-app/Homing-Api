@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
-  imageUrl: {
+  attachment: {
     type: String
   },
   home: {

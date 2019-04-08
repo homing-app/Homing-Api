@@ -7,7 +7,6 @@ const homeController = require('../controllers/home.controller');
 
 router.post('/register',
   secure.isAuthenticated,
-  uploader.single('attachment'),
   homeController.register
 )
 
@@ -19,7 +18,7 @@ router.get('/:id',
 
 router.put('/:id',
   secure.isAuthenticated,
-  secure.checkHome,
+  // secure.checkHome,
   uploader.single('attachment'),
   homeController.edit
 )

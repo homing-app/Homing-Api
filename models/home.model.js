@@ -22,7 +22,7 @@ const homeSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  imageUrl: {
+  attachment: {
     type: String
   }
 },{

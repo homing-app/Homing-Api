@@ -11,7 +11,7 @@ module.exports.register = (req, res, next) => {
       } else {
         const home = new Home(req.body)
         if (req.file) {
-          home.imageUrl = req.file.secure_url
+          home.attachment = req.file.secure_url
         }
         return home.save()
       }
@@ -33,7 +33,7 @@ module.exports.edit = (req, res, next) => {
     .then(home => {
       Object.keys(req.body).forEach(prop => home[prop] = req.body[prop])
 
-      if (req.file) home.imageUrl = req.file.secure_url;
+      if (req.file) home.attachment = req.file.secure_url;
 
       home.save()
         .then(home => res.status(202).json(home))

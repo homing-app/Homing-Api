@@ -10,7 +10,7 @@ module.exports.register = (req,res,next) => {
       } else {
         const user = new User(req.body)
         if(req.file){
-          user.imageUrl = req.file.secure_url
+          user.attachment = req.file.secure_url
         }
         return user.save()
       }
