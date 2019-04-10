@@ -6,6 +6,7 @@ const Task  = require('./task.model');
 const Item  = require('./item.model');
 const Moment  = require('./moment.model');
 const InfoItem  = require('./infoItem.model');
+const itemLog  = require('./itemLog.model');
 
 const homeSchema = new mongoose.Schema({
   email: {
@@ -69,6 +70,12 @@ homeSchema.virtual('moments', {
 
 homeSchema.virtual('info', {
   ref: InfoItem.modelName,
+  localField: '_id',
+  foreignField: 'home'
+})
+
+homeSchema.virtual('log', {
+  ref: itemLog.modelName,
   localField: '_id',
   foreignField: 'home'
 })
