@@ -17,6 +17,12 @@ const itemLogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String
+  },
+  userImage: {
+    type: String
+  },
   home: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Home'

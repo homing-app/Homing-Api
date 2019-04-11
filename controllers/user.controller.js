@@ -41,3 +41,15 @@ module.exports.setuphome = (req, res, next) => {
     .catch(error => next(error))
 }
 
+module.exports.removeHome = (req, res, next) => {
+  console.log("entra")
+  User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then(user => {
+      if(!user) {
+        throw createError(404, 'User not found!')
+      } else {
+        res.json(user)
+      }})
+      .catch(error => next(error))
+  }
+

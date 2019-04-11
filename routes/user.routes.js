@@ -20,4 +20,9 @@ secure.isAuthenticated,
 userController.setuphome
 )
 
+router.put('/:id/removehome',
+// secure.isAuthenticated,
+userController.removeHome
+)
+
 module.exports = router
