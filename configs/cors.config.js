@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const cors = require('cors');
 
-const allowedOrigins = ['https://homing-web.herokuapp.com/']
+const allowedOrigins = process.env.CORS_ORIGINS || ['http://localhost:3000']
 
 module.exports = cors({
   origin: (origin, next) => {
