@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const DB_NAME = 'homing-api'
 // const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost:27017/${DB_NAME}`;
-const MONGODB_URI = `mongodb+srv://${process.envUSER}:${process.env.PASSWORD}@homing-app-b9amn.mongodb.net/test?retryWrites=true`
+const MONGODB_URI = process.env.MONGODB_URI
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true})
   .then(() => {
