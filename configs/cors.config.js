@@ -5,9 +5,9 @@ const allowedOrigins = [process.env.CORS_ORIGINS || 'http://localhost:3000']
 
 module.exports = cors({
   origin: (origin, next) => {
-    const allowed = !origin || allowedOrigins.indexOf(origin) !== -1;
-    if (allowed) {
-      next(null, allowed)
+    const isAllowed = !origin || allowedOrigins.some(o => o === origin);
+    if (isAllowed) {
+      next(null, isAllowed)
     } else {
       next(createError(401, 'ESTÁ LLEGANDO AQUÍ: not allowed by Cors'))
     }
